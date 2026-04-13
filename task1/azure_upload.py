@@ -17,7 +17,7 @@ stations = []
 
 # open the 'stations.txt' which contains the country the station is from, and its ID for each of the 40 selected countries
 # extract only the station's ID and add it to the station IDs list
-with open("stations.txt") as f:
+with open("C:/Users/trand/DATA-479-Final-Project/task1/stations.txt") as f:
     for line in f:
         id = line.strip().split('- ')[1]
         stations.append(id)
