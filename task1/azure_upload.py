@@ -1,6 +1,6 @@
-# Python script for fast upload of the NOAA GSOD data subset
+# Python script for fast upload of our NOAA GSOD data subset to the Microsoft Azure Blob Storage
 # The subset consists of 40 different stations across various locations in the world 
-# The subset contains data of all 40 stations across 3 3-year intervals, from 1999-2001, 2009-2011, and 2019-2021
+# The subset contains data of all 40 stations across 3 decades in 3-year intervals, from 1999-2001, 2009-2011, and 2019-2021
 
 import requests
 import os
@@ -17,7 +17,7 @@ stations = []
 
 # open the 'stations.txt' which contains the country the station is from, and its ID for each of the 40 selected countries
 # extract only the station's ID and add it to the station IDs list
-with open("C:/Users/trand/DATA-479-Final-Project/task1/stations.txt") as f:
+with open("stations.txt") as f:
     for line in f:
         id = line.strip().split('- ')[1]
         stations.append(id)
