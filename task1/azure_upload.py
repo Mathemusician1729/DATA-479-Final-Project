@@ -6,6 +6,7 @@ import requests
 import os
 from dotenv import load_dotenv
 from azure.storage.blob import BlobServiceClient
+import time
 
 load_dotenv() # load all variables from .env, which includes the connection string to the container in azure blob storage
 CONTAINER = "raw-data" # name of the container in the azure blob storage
@@ -17,7 +18,7 @@ stations = []
 
 # open the 'stations.txt' which contains the country the station is from, and its ID for each of the 40 selected countries
 # extract only the station's ID and add it to the station IDs list
-with open("stations.txt") as f:
+with open("task1/stations.txt") as f:
     for line in f:
         id = line.strip().split('- ')[1]
         stations.append(id)
@@ -25,6 +26,8 @@ with open("stations.txt") as f:
 # create connection to the azure blob storage container
 blob_service_client = BlobServiceClient.from_connection_string(CONNECTION_STRING)
 container = blob_service_client.get_container_client(CONTAINER)
+
+start_time = time.perf_counter()  # start the timer
 
 # for each year, upload the csv for each station (labeled 'stationID.csv') as a blob in the container. 
 # each csv will be stored under the folder with its respective year
@@ -40,3 +43,6 @@ for year in years:
         # upload csv as blob to azure storage
         container.upload_blob(name=filename, data=csv.content, overwrite=True) 
         print(f"Uploaded {filename}")
+
+end_time = time.perf_counter()  # stop the timer
+print(f"\nTotal time taken: {end_time - start_time:.2f} seconds")
